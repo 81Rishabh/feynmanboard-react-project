@@ -1,8 +1,10 @@
 import React, { createRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Tooltip from '../Tooltip';
+import { addTopicApi } from '../utils/apiUtils';
 
 function AddTopic() {
+    const [topicName, setTopicName] = useState()
     const [state, setValue] = useState({ value: "" });
     const [selectedText, setSelectedText] = useState([])
     const [topicDescription, setTopicDescription] = useState([])
@@ -10,15 +12,54 @@ function AddTopic() {
     const [data, setData] = useState()
     const [finalList, setFinalList] = useState([])
 
+
+    // calculate percentage accorging to points
+    const findPercentage =() =>{
+        let sum = 0
+        finalList.map(item => {
+            sum += Number(item.points)
+        });
+        // percentage formula
+        const percent = (sum/((topicDescription.length-1)*4))*100
+        // console.log(sum, topicDescription, percent);
+        return percent
+    }
+
+
+    // save the data into backend using api
+    const onAddTopic =async() =>{
+
+        const topicData = {
+            topicName: topicName,
+            textArray: finalList,
+            percentage: findPercentage()
+        }
+
+        const apiResponce = await addTopicApi(topicData)
+        if (apiResponce.status === 200) {
+            // success(apiResponce.data.message)
+            console.log("responcemessage", apiResponce.data.message);
+        } else {
+            console.log("error");
+        }
+        
+    }
+
     useEffect(() =>{
         
         if(data && data.length > 0){
-            const updatedData = {myText: data[0], myAction: data[1], points: data[2]}
-            console.log(updatedData);
-            setFinalList([...finalList, {updatedData: updatedData }])
+            // const updatedData = 
+            // console.log(updatedData);
+            setFinalList([...finalList, {myText: data[0], myAction: data[1], points: data[2]}])
         }
-        console.log(finalList.length);
+        // console.log(finalList.length);
     },[data])
+
+
+    const onTopicHandle=(event) =>{
+        setTopicName(event.target.value)
+        // console.log(topicName);
+    }
 
 
     const inputsHandler = (event) => {
@@ -35,6 +76,14 @@ function AddTopic() {
 
             {/* move to dashboard */}
             <Link to='/dashboard'>Dashboard</Link>
+
+
+            <input 
+            type='text'
+            placeholder='Enter topic'
+            name='topicName'
+            onChange={(e) =>onTopicHandle(e)} />
+
 
             {/* TextArea */}
             <textarea
@@ -68,6 +117,9 @@ function AddTopic() {
                 </li>)
                 : []
             }
+
+            <button onClick={() => onAddTopic()}>Add</button>
+
 
         </div>
     )
