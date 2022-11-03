@@ -13,7 +13,7 @@ function Dashboard() {
       const data = await res.json()
       console.log(data);
       setTopicList(data.topics)
-      console.log('Topics', topicList[0].topicName, topicList[0].percentage);
+      // console.log('Topics', topicList[0].topicName, topicList[0].percentage);
     })()
   }, [])
 
