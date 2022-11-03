@@ -34,6 +34,7 @@ function Tooltip(props) {
       <div className='my-tooltip'>
         <h5 id='hover_over_me' onMouseOver={() => setIsHover(true)}>{text} &nbsp;</h5>
         {isHover && <span id={setHoverPosition} className='tooltiptext'>
+        <h6>Any Call Action</h6>
           <button className='tooltipbtn bg-success' onClick={() => onSelectAction('Understood')}>Understood</button>
           <button className='tooltipbtn bg-warning' onClick={() => onSelectAction('Somewhat understood')}>Somewhat understood</button>
           <button className='tooltipbtn bg-info' onClick={() => onSelectAction('Not clear')}>Not clear</button>

@@ -75,7 +75,7 @@ function AddTopic() {
 
 
             <div className='row '>
-                <div className='col-5'><h3 className='text-warning'><i class="fa-solid fa-user"></i>&nbsp;{localStorage.getItem('username')}</h3></div>
+                <div className='col-5'><h3 className='text-secondary'><i class="fa-solid fa-user"></i>&nbsp;{localStorage.getItem('username')}</h3></div>
                 {/* Heading of this page */}
                 <div className='col-4'><h4><i><b>Add Topic</b></i></h4></div>
                 {/* move to dashboard */}

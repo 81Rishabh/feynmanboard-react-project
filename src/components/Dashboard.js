@@ -22,7 +22,7 @@ function Dashboard() {
     <div className='container mt-5'>
 
       <div className='row'>
-        <div className='col-3'><h3><i class="fa-solid fa-user"></i> &nbsp;{localStorage.getItem('username')}</h3></div>
+        <div className='col-3'><h3 className='text-secondary'><i class="fa-solid fa-user"></i>&nbsp;{localStorage.getItem('username')}</h3></div>
         <div className='col-6'></div>
         <div className='col-3'><Link to='/addTopic'><h4 className='removeUnderline'><i class="fa-solid fa-plus"></i>ADD TOPIC</h4></Link></div>
       </div>
@@ -32,17 +32,17 @@ function Dashboard() {
         <div className='col-2'></div>
         <div className='col-10'>
           <div className='row '>
-            <div className='col-3 text-success fs-3 todo-text'>S.No</div>
-            <div className='col-2 text-success fs-3 todo-text'>Topic</div>
-            <div className='col-3 text-success fs-3 todo-text'>Percentage</div>
+            <div className='col-3 text-success fs-3 topic-text'>S.No</div>
+            <div className='col-2 text-success fs-3 topic-text'>Topic</div>
+            <div className='col-3 text-success fs-3 topic-text'>Percentage</div>
           </div>
 
           {topicList && topicList.length > 0
             ? topicList.map((i, index) =>
               <div className='row'>
-                <div className='col-3 text-success fs-3 todo-text'>{index + 1}.</div>
-                <div className='col-2 text-success fs-3 todo-text'>{i.topicName}</div>
-                <div className='col-3 text-success fs-3 todo-text'>{i.percentage}%</div>
+                <div className='col-3 text-secondary fs-3 topic-text'>{index + 1}.</div>
+                <div className='col-2 text-secondary fs-3 topic-text'>{i.topicName}</div>
+                <div className='col-3 text-secondary fs-3 topic-text'>{i.percentage}%</div>
               </div>
             )
             : "No data"}

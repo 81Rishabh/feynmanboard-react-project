@@ -58,6 +58,12 @@ input{
   color: green;
 }
 
+.topic-text{
+  color: darkblue;
+  font-family: cursive;
+  text-align: start;
+}
+
 
 /* Add topic */
 
