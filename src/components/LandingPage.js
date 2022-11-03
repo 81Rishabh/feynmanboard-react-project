@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-
+import {useNavigate} from 'react-router-dom';
+import '../App.css'
 
 function LandingPage() {
 
@@ -18,9 +18,10 @@ function LandingPage() {
     }
 
   return (
-    <div>
+    <div className='bg'>
 
-    
+        <h1><i><b>FEYNMAN BOARD</b></i></h1>
+
         <input
          type= 'text'
          placeholder='Enter your name...'
@@ -28,7 +29,7 @@ function LandingPage() {
          onChange={(e) => onHandleEvent(e)} />
 
 
-        <button onClick={() => onSubmit()}>Enter</button>
+        <button className='landingButton' onClick={() => onSubmit()}><b><i>ENTER</i></b></button>
 
     </div>
   )

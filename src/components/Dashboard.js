@@ -9,26 +9,47 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-        const res = await fetch(`http://localhost:8000/topics`)
-        const data = await res.json()
-        console.log(data);
-        setTopicList(data.topics)
-        console.log('Topics', topicList[0].topicName, topicList[0].percentage);
+      const res = await fetch(`http://localhost:8000/topics`)
+      const data = await res.json()
+      console.log(data);
+      setTopicList(data.topics)
+      console.log('Topics', topicList[0].topicName, topicList[0].percentage);
     })()
   }, [])
 
 
   return (
-    <div>
-        {localStorage.getItem('username')}
-        <Link to='/addTopic'>AddTopic</Link>
+    <div className='container mt-5'>
 
-        {topicList && topicList.length > 0 
-        ? topicList.map(i => <li>{i.topicName} {i.percentage}</li>)
-        : "No data"}
+      <div className='row'>
+        <div className='col-3'><h3><i class="fa-solid fa-user"></i> &nbsp;{localStorage.getItem('username')}</h3></div>
+        <div className='col-6'></div>
+        <div className='col-3'><Link to='/addTopic'><h4 className='removeUnderline'><i class="fa-solid fa-plus"></i>ADD TOPIC</h4></Link></div>
+      </div>
+      <hr />
+      
+      <div className='row'>
+        <div className='col-2'></div>
+        <div className='col-10'>
+          <div className='row '>
+            <div className='col-3 text-success fs-3 todo-text'>S.No</div>
+            <div className='col-2 text-success fs-3 todo-text'>Topic</div>
+            <div className='col-3 text-success fs-3 todo-text'>Percentage</div>
+          </div>
 
-       
-        
+          {topicList && topicList.length > 0
+            ? topicList.map((i, index) =>
+              <div className='row'>
+                <div className='col-3 text-success fs-3 todo-text'>{index + 1}.</div>
+                <div className='col-2 text-success fs-3 todo-text'>{i.topicName}</div>
+                <div className='col-3 text-success fs-3 todo-text'>{i.percentage}%</div>
+              </div>
+            )
+            : "No data"}
+        </div>
+
+      </div>
+
     </div>
   )
 }

@@ -32,12 +32,12 @@ function Tooltip(props) {
   return (
     <>
       <div className='my-tooltip'>
-        <h3 id='hover_over_me' onMouseOver={() => setIsHover(true)}>{text} &nbsp;</h3>
+        <h5 id='hover_over_me' onMouseOver={() => setIsHover(true)}>{text} &nbsp;</h5>
         {isHover && <span id={setHoverPosition} className='tooltiptext'>
-          <button onClick={() => onSelectAction('Understood')}>Understood</button>
-          <button onClick={() => onSelectAction('Somewhat understood')}>Somewhat understood</button>
-          <button onClick={() => onSelectAction('Not clear')}>Not clear</button>
-          <button onClick={() => onSelectAction('What rubbish')}>What rubbish</button>
+          <button className='tooltipbtn bg-success' onClick={() => onSelectAction('Understood')}>Understood</button>
+          <button className='tooltipbtn bg-warning' onClick={() => onSelectAction('Somewhat understood')}>Somewhat understood</button>
+          <button className='tooltipbtn bg-info' onClick={() => onSelectAction('Not clear')}>Not clear</button>
+          <button className='tooltipbtn bg-danger' onClick={() => onSelectAction('What rubbish')}>What rubbish</button>
         </span>}
       </div>
     </>

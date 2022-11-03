@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Tooltip from '../Tooltip';
 import { addTopicApi } from '../utils/apiUtils';
+import '../App.css'
 
 function AddTopic() {
     const [topicName, setTopicName] = useState()
@@ -14,20 +15,20 @@ function AddTopic() {
 
 
     // calculate percentage accorging to points
-    const findPercentage =() =>{
+    const findPercentage = () => {
         let sum = 0
         finalList.map(item => {
             sum += Number(item.points)
         });
         // percentage formula
-        const percent = (sum/((topicDescription.length-1)*4))*100
+        const percent = (sum / ((topicDescription.length - 1) * 4)) * 100
         // console.log(sum, topicDescription, percent);
         return percent
     }
 
 
     // save the data into backend using api
-    const onAddTopic =async() =>{
+    const onAddTopic = async () => {
 
         const topicData = {
             topicName: topicName,
@@ -42,21 +43,21 @@ function AddTopic() {
         } else {
             console.log("error");
         }
-        
+
     }
 
-    useEffect(() =>{
-        
-        if(data && data.length > 0){
+    useEffect(() => {
+
+        if (data && data.length > 0) {
             // const updatedData = 
             // console.log(updatedData);
-            setFinalList([...finalList, {myText: data[0], myAction: data[1], points: data[2]}])
+            setFinalList([...finalList, { myText: data[0], myAction: data[1], points: data[2] }])
         }
         // console.log(finalList.length);
-    },[data])
+    }, [data])
 
 
-    const onTopicHandle=(event) =>{
+    const onTopicHandle = (event) => {
         setTopicName(event.target.value)
         // console.log(topicName);
     }
@@ -70,57 +71,71 @@ function AddTopic() {
 
 
     return (
-        <div>
-            {/* Heading of this page */}
-            <div>AddTopic</div>
-
-            {/* move to dashboard */}
-            <Link to='/dashboard'>Dashboard</Link>
+        <div className='container mt-5'>
 
 
-            <input 
-            type='text'
-            placeholder='Enter topic'
-            name='topicName'
-            onChange={(e) =>onTopicHandle(e)} />
+            <div className='row '>
+                <div className='col-5'><h3 className='text-warning'><i class="fa-solid fa-user"></i>&nbsp;{localStorage.getItem('username')}</h3></div>
+                {/* Heading of this page */}
+                <div className='col-4'><h4><i><b>Add Topic</b></i></h4></div>
+                {/* move to dashboard */}
+                <div className='col-3'><Link to='/dashboard' className='removeUnderline'><h3>Dashboard</h3></Link></div>
+            </div>
+            <hr />
+
+            <div className='row'>
+                <div className='col-1'></div>
+                <div className='col-10'>
+                    <div>
+                        <input
+                            className='item-width'
+                            type='text'
+                            placeholder='Enter topic name...'
+                            name='topicName'
+                            onChange={(e) => onTopicHandle(e)} />
+
+                        {/* TextArea */}
+                        <textarea
+                            className='mt-2 item-width'
+                            type="text"
+                            ref={myRef}
+                            rows={10}
+                            cols={60}
+                            placeholder="Enter topic description..."
+                            onChange={inputsHandler}
+                            value={state.value} />
+
+                        {/* Button */}
+                        <button className='landingButton item-width' onClick={() => {
+                            let textVal = myRef.current;
+                            let cursorStart = textVal.selectionStart;
+                            let cursorEnd = textVal.selectionEnd;
+                            let stext = state.value.substring(cursorStart, cursorEnd)
+                            console.log(stext)
+                            setSelectedText([...selectedText, { text: stext }]);
+
+                        }}><h5>Select and Give Action</h5></button>
+                    </div>
 
 
-            {/* TextArea */}
-            <textarea
-                type="text"
-                ref={myRef}
-                rows={10}
-                cols={60}
-                onChange={inputsHandler}
-                value={state.value} />
+                    {/* Display all selected item with actions */}
+                    <div>
+                        {selectedText && selectedText.length > 0
+                            ? selectedText.map((i, index) => <span key={index}>
+                                <Tooltip
+                                    setHoverPosition='top'
+                                    setDataValue={setData}
+                                    text={i.text} />
+                                {finalList && finalList.length > 0 ? finalList.map((i, index) => console.log(index + 1, i)) : []}
 
-            {/* Button */}
-            <button onClick={() => {
-                let textVal = myRef.current;
-                let cursorStart = textVal.selectionStart;
-                let cursorEnd = textVal.selectionEnd;
-                let stext = state.value.substring(cursorStart, cursorEnd)
-                console.log(stext)
-                setSelectedText([...selectedText, { text: stext }]);
+                            </span>)
+                            : []
+                        }
+                    </div>
 
-            }}>Select and Give Action</button>
-
-            {/* Display all selected item with actions */}
-            {selectedText && selectedText.length > 0
-                ? selectedText.map((i, index) => <li key={index}>
-                    <Tooltip
-                        setHoverPosition='top'
-                        setDataValue={setData}
-                        text={i.text} />
-                    {finalList && finalList.length>0 ?finalList.map((i,index) => console.log(index+1,i)): []}
-                    
-                </li>)
-                : []
-            }
-
-            <button onClick={() => onAddTopic()}>Add</button>
-
-
+                    <button className='landingButton item-width'  onClick={() => onAddTopic()}><h5><i class="fa-solid fa-plus"></i>ADD</h5></button>
+                </div>
+            </div>
         </div>
     )
 }
