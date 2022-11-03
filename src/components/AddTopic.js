@@ -1,10 +1,15 @@
 import React, { createRef, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Tooltip from '../Tooltip';
 import { addTopicApi } from '../utils/apiUtils';
 import '../App.css'
+import { success } from './Toast';
+
+
+
 
 function AddTopic() {
+    const navigate = useNavigate()
     const [topicName, setTopicName] = useState()
     const [state, setValue] = useState({ value: "" });
     const [selectedText, setSelectedText] = useState([])
@@ -23,7 +28,7 @@ function AddTopic() {
         // percentage formula
         const percent = (sum / ((topicDescription.length - 1) * 4)) * 100
         // console.log(sum, topicDescription, percent);
-        return percent
+        return percent.toFixed(2)
     }
 
 
@@ -38,11 +43,13 @@ function AddTopic() {
 
         const apiResponce = await addTopicApi(topicData)
         if (apiResponce.status === 200) {
-            // success(apiResponce.data.message)
+            success(apiResponce.data.message)
             console.log("responcemessage", apiResponce.data.message);
         } else {
             console.log("error");
         }
+
+        navigate('/dashboard')
 
     }
 

@@ -64,6 +64,11 @@ input{
   text-align: start;
 }
 
+.no-date{
+  margin-top: 2rem;
+ margin-left: 15rem;
+}
+
 
 /* Add topic */
 

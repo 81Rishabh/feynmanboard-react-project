@@ -45,7 +45,7 @@ function Dashboard() {
                 <div className='col-3 text-secondary fs-3 topic-text'>{i.percentage}%</div>
               </div>
             )
-            : "No data"}
+            : <h4 className='topic-text no-date'>No data available</h4>}
         </div>
 
       </div>
