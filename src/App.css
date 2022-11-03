@@ -111,6 +111,11 @@ textarea{
   margin-top: 2px;
 }
 
+#hover_over_me:hover{
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
 /*  Position of tooltip */
 #top{
   bottom: 90%;
